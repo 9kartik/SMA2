@@ -101,6 +101,7 @@ function draw() {
         println(token2);
         if((token2>>i&1)==1)
         base.add(f[i]);
+        //console.log(f[i])
         }
     }
     else if(malpha!=null && mbeta!=null)
@@ -108,7 +109,8 @@ function draw() {
           var lr=1-2*(malpha>0)
           var ud=1-2*(mbeta>0)
           mfrc=createVector(lr,ud)
-          console.log(mfrc)
+          mfrc.mult(6)
+          //console.log(mfrc)
           base.add(mfrc)
       }
     else base.mult(0);
