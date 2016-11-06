@@ -105,10 +105,10 @@ function draw() {
     }
     else if(malpha!=null && mbeta!=null)
       {
-          console.log(malpha,mbeta)
           var lr=1-2*(malpha>0)
           var ud=1-2*(mbeta>0)
-          mfrc=p5.Vector(lr,ud)
+          mfrc=createVector(lr,ud)
+          console.log(mfrc)
           base.add(mfrc)
       }
     else base.mult(0);
