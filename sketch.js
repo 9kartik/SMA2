@@ -63,15 +63,18 @@ window.addEventListener('deviceorientation', function(e)
 {
   mob=1;
   malpha = e.alpha;
-  mgamma = e.gamma;
+  mbeta = e.beta;
 });
 var stx=["Bring the target here","Yes, now keep it here"]
 var ix=0
+var mfrc
 function draw() {
   background(0);
   textSize(14)
   text(stx[ix],width/2,height/2)
   textSize(20)
+  //console.log(malpha,mgamma)
+  
   text("SCORE"+int(score),width-width/10,height/10)
   noFill();
   ellipseMode(CENTER);
@@ -100,6 +103,14 @@ function draw() {
         base.add(f[i]);
         }
     }
+    else if(malpha!=null && mbeta!=null)
+      {
+          console.log(malpha,mbeta)
+          var lr=1-2*(malpha>0)
+          var ud=1-2*(mbeta>0)
+          mfrc=p5.Vector(lr,ud)
+          base.add(mfrc)
+      }
     else base.mult(0);
     m.applyForce(base);
             
@@ -111,7 +122,7 @@ function draw() {
           {
             app=f[j].copy();
             app.mult(1+rn1*6);
-            m.applyForce(app);
+            //m.applyForce(app);
           }
       }
       //c1.setFill(cl3);
