@@ -16,7 +16,7 @@ var token=0,token2=0;
 var base;
 var c = -0.3;
 function setup() {
-  createCanvas(375, 667);
+  createCanvas(displayWidth, displayHeight);
   rectMode(CENTER);
   m= new Mover(2, width/2, 35);
   c=c.toPrecision(1)
@@ -35,6 +35,8 @@ function setup() {
   f[1]=p5.Vector.fromAngle(-PI/2);
   f[2]=p5.Vector.fromAngle(0);
   f[3]=p5.Vector.fromAngle(PI/2);
+  stroke(255);
+  textAlign(CENTER);
 }
 
 function keyReleased(){
@@ -54,15 +56,41 @@ function keyReleased(){
           token2|=(1<<token);
        }
     }
+var malpha,mgamma;
+var mob=0;
+var score=500;
+window.addEventListener('deviceorientation', function(e) 
+{
+  mob=1;
+  malpha = e.alpha;
+  mgamma = e.gamma;
+});
+var stx=["Bring the target here","Yes, now keep it here"]
+var ix=0
 function draw() {
   background(0);
+  textSize(14)
+  text(stx[ix],width/2,height/2)
+  textSize(20)
+  text("SCORE"+int(score),width-width/10,height/10)
   noFill();
   ellipseMode(CENTER);
   stroke(color(255,255,255));
   rect(width/2,height/2,height/4,height/4);
   stroke(color(255,122,255));
   rect(width/2,height/2,height/6,height/6);
-  
+  if(m.location.y>height/2-height/12 && m.location.y<height/2+height/12 && m.location.x>width/2-width/12 && m.location.x<width/2+width/12)
+  {
+      ix=1
+      score=score+.2;
+      fill(255,255,255,20)
+      rect(width/2,height/2,height/6,height/6)
+      fill(0,0,0)
+  }
+  else {
+      ix=0
+      score=score-0.03
+  }
     if(token2>0)
     {
       for(var i=0;i<4;i++)
@@ -82,7 +110,7 @@ function draw() {
           if(((rn1>>j)&1)==1)
           {
             app=f[j].copy();
-            app.mult(1+rn1*5);
+            app.mult(1+rn1*6);
             m.applyForce(app);
           }
       }
